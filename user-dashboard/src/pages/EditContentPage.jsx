@@ -47,7 +47,7 @@ const EditContentPage = () => {
 
   if (!loading && data) {
     return (
-      <div className="mx-2 my-4 divide-y min-h-screen">
+      <div className="mx-2 my-4 divide-y min-h-screen font-arOne">
         <TipTap
           openModal={handleOpenSaveModal}
           editorContent={data.blog.content}

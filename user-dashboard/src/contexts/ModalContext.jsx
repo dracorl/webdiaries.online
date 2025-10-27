@@ -36,7 +36,7 @@ export const ModalProvider = ({children}) => {
       {children}
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="font-arOne sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>{modalConfig.title}</DialogTitle>
             {modalConfig.description && (

@@ -27,6 +27,7 @@ export default {
       },
       fontFamily: {
         sans: ["JetBrains Mono", "sans-serif"],
+        arOne: ["AR One Sans", "sans-serif"],
         dancing: ["'Dancing Script'", "cursive"],
         vibes: ["'Great Vibes'", "cursive"]
       },

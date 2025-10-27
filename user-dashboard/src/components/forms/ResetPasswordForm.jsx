@@ -10,7 +10,8 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage
+  FormMessage,
+  FormDescription
 } from "@/components/ui/form"
 import {Input} from "@/components/ui/input"
 import {PasswordFormSchema} from "./Schema"
@@ -48,7 +49,10 @@ const ResetPasswordForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-4 bg-gray-100 border-black border-2 rounded-lg p-6"
+      >
         <FormField
           control={form.control}
           name="password"
@@ -57,6 +61,10 @@ const ResetPasswordForm = () => {
               <FormLabel className="text-lg font-semibold">
                 Change Your Password
               </FormLabel>
+              <FormDescription>
+                For maximum security, always avoid common, predictable
+                passwords.
+              </FormDescription>
               <FormControl>
                 <Input type="password" placeholder="New Password" {...field} />
               </FormControl>

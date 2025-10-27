@@ -13,7 +13,7 @@ const Drawer = ({isOpen, onOpenChange}) => {
     <Sheet open={isOpen} onOpenChange={onOpenChange}>
       <SheetContent
         side="left"
-        className="w-64 p-0 pt-2"
+        className="font-arOne w-64 p-0 pt-2"
         aria-describedby="drawer-description"
       >
         <VisuallyHidden>

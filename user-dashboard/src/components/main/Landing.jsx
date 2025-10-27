@@ -1,11 +1,19 @@
 import {Button} from "@/components/ui/button"
 import {motion, useAnimation} from "framer-motion"
-import BlogCard from "./BlogCard"
 import {useModal} from "../../contexts/ModalContext"
 import SignUpForm from "../forms/SignUpForm"
 import {useAuth} from "@/contexts/AuthContext"
 import {useEffect} from "react"
 import {useNavigate} from "react-router-dom"
+import {Card, CardContent} from "@/components/ui/card"
+import {
+  Pen,
+  FileText,
+  BarChart3,
+  Calendar,
+  Clock,
+  ArrowUpRight
+} from "lucide-react"
 
 const blogs = [
   {
@@ -16,7 +24,7 @@ const blogs = [
     readTime: "5 min read",
     imageUrl:
       "https://upload.wikimedia.org/wikipedia/commons/9/9d/Commodore-64-Computer-FL.png",
-    link: "https://enginyuksel.webdiaries.online/blog/67bf4071923c224bfbf33503"
+    link: "https://enginyuksel.webdiaries.online/blog/68f8c8e7f4fc5ae1d5b79d1f"
   },
   {
     title: "Best Anytime Baked Chicken Meatballs",
@@ -25,7 +33,7 @@ const blogs = [
     readTime: "7 min read",
     imageUrl:
       "https://pinchofyum.com/cdn-cgi/image/width=680,height=99999,fit=scale-down/wp-content/uploads/Baked-Chicken-Meatballs-with-Sauce.jpg",
-    link: "https://delicious.webdiaries.online/blog/67d77474923c224bfbf34341"
+    link: "https://enginyuksel.webdiaries.online/blog/68f8c97bf4fc5ae1d5b79d29"
   },
   {
     title: "Tibet Travel Tips: A First-Timer's Guide",
@@ -33,7 +41,7 @@ const blogs = [
     date: "Sep 10, 2024",
     readTime: "7 min read",
     imageUrl: "https://media.odynovotours.com/article/30000/tibet_27710.jpg",
-    link: "https://travellersguide.webdiaries.online/blog/67d785c9923c224bfbf343af"
+    link: "https://enginyuksel.webdiaries.online/blog/68f8ca28f4fc5ae1d5b79d3d"
   }
 ]
 
@@ -52,59 +60,62 @@ export default function Landing() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="container mx-auto px-4 py-16 md:py-24">
-        <div className="flex flex-col items-center text-center">
-          <motion.div
-            initial={{opacity: 0, y: 20}}
-            animate={{opacity: 1, y: 0}}
-            transition={{duration: 0.8}}
-          >
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-              <span className="font-sans">Share Your Thoughts</span>
-              <span className="font-vibes text-blue-600 block mt-2">
-                Freely
-              </span>
-            </h1>
-          </motion.div>
-
-          <motion.div
-            initial={{opacity: 0}}
-            animate={{opacity: 1}}
-            transition={{delay: 0.5}}
-            className="mb-12"
-          >
-            <WritingHandSVG className="w-64 h-64 md:w-80 md:h-80" />
-          </motion.div>
-
-          <div className="space-y-4">
-            <Button
-              onClick={signUpAction}
-              className="relative z-10 text-lg px-8 py-6 bg-blue-600 hover:bg-blue-700"
+      <section className="min-h-screen flex items-center justify-center">
+        <div className="container mx-auto px-4 py-8">
+          <div className="flex flex-col items-center text-center">
+            <motion.div
+              initial={{opacity: 0, y: 20}}
+              animate={{opacity: 1, y: 0}}
+              transition={{duration: 0.8}}
+              className="mb-4 md:mb-6"
             >
-              Start for Free
-            </Button>
-            <p className="text-gray-600 text-sm mt-2">
-              Creating an account takes just 30 seconds
-            </p>
+              <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 md:mb-6">
+                <span className="font-arOne">Share Your Thoughts</span>
+                <span className="font-vibes text-gray-900 block mt-2 md:mt-5">
+                  Freely
+                </span>
+              </h1>
+            </motion.div>
+
+            <motion.div
+              initial={{opacity: 0}}
+              animate={{opacity: 1}}
+              transition={{delay: 0.5}}
+              className="mb-6 md:mb-8"
+            >
+              <WritingHandSVG className="w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80" />
+            </motion.div>
+
+            <div className="space-y-4">
+              <Button
+                onClick={signUpAction}
+                className="relative z-10 text-base md:text-lg px-6 py-4 md:px-8 md:py-6 font-arOne"
+              >
+                Start for Free
+              </Button>
+              <p className="text-gray-600 text-xs md:text-sm mt-2 font-arOne">
+                Creating an account takes just 30 seconds
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="bg-gray-200 py-16 md:py-24">
+      <section className="py-16 md:py-24">
         <div className="container mx-auto px-4 grid md:grid-cols-3 gap-8">
           <FeatureCard
-            icon={<PenSVG className="w-12 h-12" />}
+            icon={<Pen className="w-12 h-12" />}
             title="Easy Writing"
             description="Simple and fast writing experience with Markdown support"
           />
           <FeatureCard
-            icon={<BlogSVG className="w-12 h-12" />}
+            icon={<FileText className="w-12 h-12" />}
             title="Customizable Blog"
             description="Create your unique blog with theme and layout tools"
           />
           <FeatureCard
-            icon={<AnalyticsSVG className="w-12 h-12" />}
+            icon={<BarChart3 className="w-12 h-12" />}
             title="Detailed Analytics"
             description="Track reader statistics and performance metrics"
           />
@@ -113,12 +124,12 @@ export default function Landing() {
 
       {/* Featured Blogs Section */}
       <section className="container mx-auto px-4 py-16 md:py-24">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 font-arOne">
           Featured Blogs
         </h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {blogs.map((blog, item) => (
-            <BlogCard key={item} {...blog} />
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 font-arOne">
+          {blogs.map((blog, index) => (
+            <BlogCard key={index} {...blog} />
           ))}
         </div>
       </section>
@@ -202,62 +213,70 @@ const WritingHandSVG = ({className}) => {
   )
 }
 
-const PenSVG = ({className}) => (
-  <svg
-    viewBox="0 0 24 24"
-    className={className}
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.5"
-  >
-    <path
-      d="M13 7L17 3M21 7L17 3M17 3L19 12C19 12 15.9706 12 15 12C12.5 12 11 13.25 11 15C11 18 13 21 17 21C20 21 21 19 21 15C21 10 19 7 16 7C14 7 13 9 13 9"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-)
-
-const BlogSVG = ({className}) => (
-  <svg
-    viewBox="0 0 24 24"
-    className={className}
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.5"
-  >
-    <path
-      d="M12 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V12M9 15H15M9 9H15M9 12H12M16 3.00098L21 8.00098M16 3L11 8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-)
-
-const AnalyticsSVG = ({className}) => (
-  <svg
-    viewBox="0 0 24 24"
-    className={className}
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.5"
-  >
-    <path
-      d="M3 3V19H21M7 15V11M11 15V7M15 15V13"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-)
-
-// Reusable Components
+// FeatureCard Component
 const FeatureCard = ({icon, title, description}) => (
-  <motion.div
-    whileHover={{scale: 1.05}}
-    className="bg-white/50 backdrop-blur-md p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow border border-white/20"
-  >
-    <div className="text-blue-600 mb-4">{icon}</div>
-    <h3 className="text-xl font-semibold mb-2">{title}</h3>
-    <p className="text-gray-600">{description}</p>
+  <motion.div whileHover={{scale: 1.05}}>
+    <Card className="font-arOne bg-white/50 backdrop-blur-md p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow border border-black h-full">
+      <CardContent className="p-0">
+        <div className="flex items-center justify-between">
+          <h3 className="text-xl font-semibold mb-2">{title}</h3>
+          <div className="mb-4">{icon}</div>
+        </div>
+        <p className="text-gray-600">{description}</p>
+      </CardContent>
+    </Card>
+  </motion.div>
+)
+
+const BlogCard = ({title, description, date, readTime, imageUrl, link}) => (
+  <motion.div whileHover={{scale: 1.05}} className="h-full">
+    <Card className="h-full overflow-hidden group cursor-pointer border border-gray-200 hover:border-gray-300 transition-all duration-300">
+      <a
+        href={link}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block h-full"
+      >
+        <CardContent className="p-0 h-full flex flex-col">
+          {/* Blog Image */}
+          <div className="relative overflow-hidden">
+            <img
+              src={imageUrl}
+              alt={title}
+              className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+            />
+            <div className="absolute top-3 right-3">
+              <div className="bg-white/90 backdrop-blur-sm rounded-full p-2 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                <ArrowUpRight className="w-4 h-4" />
+              </div>
+            </div>
+          </div>
+
+          {/* Blog Content */}
+          <div className="p-6 flex-1 flex flex-col">
+            <h3 className="text-xl font-semibold mb-3 line-clamp-2 group-hover:text-blue-600 transition-colors">
+              {title}
+            </h3>
+            <p className="text-gray-600 mb-4 line-clamp-2 flex-1">
+              {description}
+            </p>
+
+            {/* Meta Information */}
+            <div className="flex items-center justify-between text-sm text-gray-500 mt-auto">
+              <div className="flex items-center space-x-4">
+                <div className="flex items-center">
+                  <Calendar className="w-4 h-4 mr-1" />
+                  <span>{date}</span>
+                </div>
+                <div className="flex items-center">
+                  <Clock className="w-4 h-4 mr-1" />
+                  <span>{readTime}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </a>
+    </Card>
   </motion.div>
 )

@@ -81,7 +81,7 @@ const Navbar = ({onDrawerOpen}) => {
             ]}
             speed={50}
             repeat={Infinity}
-            className="text-xs md:text-sm font-mono"
+            className="text-xs md:text-sm font-arOne"
           />
         )}
       </div>
@@ -90,13 +90,13 @@ const Navbar = ({onDrawerOpen}) => {
         {loggedIn && (
           <>
             <Button
-              variant="ghost"
+              variant="default"
               onClick={logoutAction}
               className="font-mono text-xs px-2 md:px-4"
             >
               <span className="hidden md:inline">Log Out</span>
             </Button>
-            <Button variant="ghost" size="icon" onClick={onDrawerOpen}>
+            <Button variant="default" size="icon" onClick={onDrawerOpen}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
@@ -116,7 +116,7 @@ const Navbar = ({onDrawerOpen}) => {
         )}
         {!loggedIn && (
           <Button
-            variant="ghost"
+            variant="default"
             onClick={loginAction}
             className="font-mono text-xs px-2 md:px-4 z-50"
           >

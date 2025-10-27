@@ -6,7 +6,7 @@ import SocialLinksForm from "../components/forms/SocialLinksForm"
 
 const SettingsPage = () => {
   return (
-    <Tabs defaultValue="bio" className="w-full h-screen">
+    <Tabs defaultValue="bio" className="w-full h-screen font-arOne">
       {/* Sabit Tab Başlıkları */}
       <div className="sticky top-0 bg-background drop-shadow-xl">
         <TabsList className="grid w-full grid-cols-4 h-12">
