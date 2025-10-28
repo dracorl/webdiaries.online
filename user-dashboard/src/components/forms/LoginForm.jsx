@@ -14,6 +14,7 @@ import {
   FormMessage
 } from "@/components/ui/form"
 import {Input} from "@/components/ui/input"
+import {Link, useNavigate} from "react-router-dom"
 import {LoginFormSchema} from "./Schema"
 import {useModal} from "../../contexts/ModalContext"
 
@@ -29,6 +30,7 @@ const LOGIN_MUTATION = gql`
 const LoginForm = ({onSubmitSuccess}) => {
   const {login} = useAuth()
   const {closeModal} = useModal()
+  const navigate = useNavigate()
   const [loginMutation] = useMutation(LOGIN_MUTATION)
 
   const form = useForm({
@@ -48,6 +50,7 @@ const LoginForm = ({onSubmitSuccess}) => {
       )
       closeModal()
       login()
+      navigate("/", {replace: true})
     } catch (error) {
       console.error(error)
       toast.error(error.message)
@@ -83,6 +86,15 @@ const LoginForm = ({onSubmitSuccess}) => {
             </FormItem>
           )}
         />
+        <div className="text-right">
+          <Link
+            to="/forgot-password"
+            className="text-sm text-blue-600 hover:text-blue-800 hover:underline"
+            onClick={closeModal} // Modal'ı kapatmak için
+          >
+            Forgot your password?
+          </Link>
+        </div>
 
         <Button className="w-full" type="submit">
           Submit

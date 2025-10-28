@@ -19,7 +19,7 @@ const Menu = ({onOpenChange}) => {
 
   return (
     <div className="space-y-4 mx-2">
-      <Button asChild className="w-2xl" onClick={handleLinkClick}>
+      <Button asChild className="w-full mt-10" onClick={handleLinkClick}>
         <Link to="/create">
           <FaPlus className="text-lg mr-2" />
           Create New Post

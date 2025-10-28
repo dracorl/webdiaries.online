@@ -42,7 +42,7 @@ const Navbar = ({onDrawerOpen}) => {
   }
 
   return (
-    <header className="bg-gray-200/30 shadow-md flex items-center justify-between w-full h-16 px-4 border-b">
+    <header className="font-arOne bg-gray-200/30 shadow-md flex items-center justify-between w-full h-16 px-4 border-b">
       <div className="flex items-center gap-2 md:gap-4 flex-1">
         {loggedIn && username && (
           <Link
@@ -51,7 +51,7 @@ const Navbar = ({onDrawerOpen}) => {
             className="flex items-center gap-1 md:gap-2 hover:opacity-80 transition-opacity"
           >
             <TypeAnimation
-              className="text-xs md:text-sm font-mono max-w-[100px] md:max-w-none truncate"
+              className="text-xs md:text-sm max-w-[100px] md:max-w-none truncate"
               sequence={[
                 `https://${username}.webdiaries.online`,
                 1000,
@@ -81,7 +81,7 @@ const Navbar = ({onDrawerOpen}) => {
             ]}
             speed={50}
             repeat={Infinity}
-            className="text-xs md:text-sm font-arOne"
+            className="text-xs md:text-sm"
           />
         )}
       </div>
@@ -92,7 +92,7 @@ const Navbar = ({onDrawerOpen}) => {
             <Button
               variant="default"
               onClick={logoutAction}
-              className="font-mono text-xs px-2 md:px-4"
+              className="text-xs px-2 md:px-4 hidden md:inline"
             >
               <span className="hidden md:inline">Log Out</span>
             </Button>
@@ -118,7 +118,7 @@ const Navbar = ({onDrawerOpen}) => {
           <Button
             variant="default"
             onClick={loginAction}
-            className="font-mono text-xs px-2 md:px-4 z-50"
+            className="text-xs px-2 md:px-4 z-50"
           >
             LOG IN
           </Button>

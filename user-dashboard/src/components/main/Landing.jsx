@@ -239,7 +239,7 @@ const BlogCard = ({title, description, date, readTime, imageUrl, link}) => (
       >
         <CardContent className="p-0 h-full flex flex-col">
           {/* Blog Image */}
-          <div className="relative overflow-hidden">
+          <div className="relative overflow-hidden border-b-2 border-gray-300">
             <img
               src={imageUrl}
               alt={title}

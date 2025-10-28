@@ -15,6 +15,7 @@ import ForgotPasswordPage from "./pages/ForgotPasswordPage"
 import ResetPasswordPage from "./pages/ResetPasswordPage"
 import NotFoundPage from "./pages/NotFoundPage"
 import ProtectedRoute from "./components/main/ProtectedRoute"
+import PublicOnlyRoute from "./components/main/PublicOnlyRoute"
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -27,9 +28,11 @@ const router = createBrowserRouter(
         <Route path="/settings" element={<SettingsPage />} />
         <Route path="/posts/:blogId/edit" element={<EditContentPage />} />
       </Route>
+      <Route element={<PublicOnlyRoute />}>
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
+      </Route>
 
-      <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-      <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Route>
   )
