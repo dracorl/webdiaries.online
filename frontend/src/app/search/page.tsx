@@ -3,9 +3,10 @@
 import {gql} from "@apollo/client"
 import {useQuery} from "@apollo/client/react"
 import {useSearchParams} from "next/navigation"
-import {useState, useCallback, useEffect} from "react"
+import {useState, useCallback, useEffect, Suspense} from "react"
 import {useAppStore} from "@/stores/appStore"
 import BlogFeed from "@/components/main/BlogFeed"
+import Loading from "@/components/ui/Loading"
 
 const SEARCH_BLOGS = gql`
   query SearchBlogs(
@@ -36,7 +37,8 @@ const SEARCH_BLOGS = gql`
   }
 `
 
-export default function SearchView() {
+// SearchParams'ı ayrı bir component'ta kullan
+function SearchContent() {
   const searchParams = useSearchParams()
   const searchTerm = searchParams?.get("search") || ""
   const {author} = useAppStore()
@@ -74,7 +76,6 @@ export default function SearchView() {
       setBlogs(searchData.searchBlogs.blog)
       setTotalCount(searchData.searchBlogs.totalCount)
 
-      // Eğer gelen veri sayısı limitten azsa, daha fazla veri yok demektir
       if (searchData.searchBlogs.blog.length < 10) {
         setHasMore(false)
       } else setHasMore(true)
@@ -100,7 +101,6 @@ export default function SearchView() {
 
       setBlogs(prev => [...prev, ...newBlogs])
 
-      // Eğer gelen veri sayısı limitten azsa, daha fazla veri yok
       if (newBlogs.length < 10) {
         setHasMore(false)
       }
@@ -122,5 +122,14 @@ export default function SearchView() {
       onLoadMore={handleLoadMore}
       totalCount={totalCount}
     />
+  )
+}
+
+// Ana component - Suspense burada olmalı
+export default function SearchView() {
+  return (
+    <Suspense fallback={<Loading />}>
+      <SearchContent />
+    </Suspense>
   )
 }
