@@ -1,5 +1,15 @@
+// resolvers/blogResolvers.js
 import mongoose from "mongoose"
 import {Blog, User, Tag} from "../database/models/index.js"
+
+// Slug oluşturma fonksiyonu
+function generateSlug(title) {
+  return title
+    .toLowerCase()
+    .replace(/[^\w ]+/g, "")
+    .replace(/ +/g, "-")
+    .substring(0, 60)
+}
 
 const blogResolvers = {
   Query: {
@@ -20,6 +30,12 @@ const blogResolvers = {
 
       return {totalCount, blog}
     },
+
+    // Yeni blogBySlug query'si
+    blogBySlug: async (_, {slug, author}) => {
+      return Blog.findOne({slug, author, published: true}).populate("tags")
+    },
+
     searchBlogs: async (_, {author, searchTerm, limit, offset}) => {
       const query = {
         published: true,
@@ -35,9 +51,18 @@ const blogResolvers = {
 
       return {totalCount, blog}
     },
+
     blog: async (_, {id}) => Blog.findById(id).populate("tags"),
+
     tags: async () => Tag.find(),
+
     tag: async (_, {id}) => Tag.findById(id),
+
+    // Yeni tagByName query'si
+    tagByName: async (_, {name}) => {
+      return Tag.findOne({name: name.toLowerCase()})
+    },
+
     tagsCount: async (_, {author}) => {
       const tagCounts = await Blog.aggregate([
         {
@@ -46,18 +71,14 @@ const blogResolvers = {
             author: mongoose.Types.ObjectId.createFromHexString(author)
           }
         },
-        // Unwind the tags array to deconstruct the array into documents
         {$unwind: "$tags"},
-        // Group by the tag and count the occurrences
         {
           $group: {
             _id: "$tags",
             count: {$sum: 1}
           }
         },
-        // Sort by count in descending order
         {$sort: {count: -1}},
-        // Lookup to get the tag details
         {
           $lookup: {
             from: "tags",
@@ -66,9 +87,7 @@ const blogResolvers = {
             as: "tagDetails"
           }
         },
-        // Unwind the tagDetails array to get the tag details object
         {$unwind: "$tagDetails"},
-        // Project the necessary fields
         {
           $project: {
             _id: 0,
@@ -81,10 +100,13 @@ const blogResolvers = {
       return tagCounts
     }
   },
+
   Mutation: {
     createBlog: async (_, {title, content, tags, published}, {user}) => {
+      const slug = generateSlug(title)
       const newBlog = new Blog({
         title,
+        slug,
         content,
         author: user.userID,
         tags,
@@ -92,31 +114,40 @@ const blogResolvers = {
       })
       return newBlog.save()
     },
+
     updateBlog: async (_, {id, title, content, tags, published}) => {
       const updates = {}
-      if (title) updates.title = title
+      if (title) {
+        updates.title = title
+        updates.slug = generateSlug(title)
+      }
       if (content) updates.content = content
       if (tags) updates.tags = tags
       if (published !== undefined) updates.published = published
       return Blog.findByIdAndUpdate(id, updates, {new: true})
     },
+
     deleteBlog: async (_, {id}) => {
       const deletedBlog = await Blog.findByIdAndDelete(id)
       return !!deletedBlog
     },
+
     createTag: async (_, {name}) => {
-      const newTag = new Tag({name})
+      const newTag = new Tag({name: name.toLowerCase()})
       return newTag.save()
     },
+
     deleteTag: async (_, {id}) => {
       const deletedTag = await Tag.findByIdAndDelete(id)
       return !!deletedTag
     }
   },
+
   Blog: {
     author: async parent => User.findById(parent.author).select("-password"),
     tags: async parent => Tag.find({_id: {$in: parent.tags}})
   },
+
   Tag: {
     blogs: async parent => Blog.find({tags: parent._id})
   }

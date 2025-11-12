@@ -1,9 +1,11 @@
+// typeDefs/blogTypeDefs.js
 import gql from "graphql-tag"
 
 const blogTypeDefs = gql`
   type Blog {
     id: ID!
     title: String!
+    slug: String
     content: String!
     author: User
     tags: [Tag!]!
@@ -31,6 +33,7 @@ const blogTypeDefs = gql`
 
   type Query {
     blog(id: ID!): Blog
+    blogBySlug(slug: String!, author: ID!): Blog
     blogs(
       author: ID
       published: Boolean
@@ -45,6 +48,7 @@ const blogTypeDefs = gql`
       offset: Int!
     ): BlogList!
     tag(id: ID!): Tag
+    tagByName(name: String!): Tag
     tags: [Tag!]!
     tagsCount(author: ID!): [TagsCount!]!
   }

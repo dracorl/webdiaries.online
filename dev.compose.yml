@@ -59,14 +59,14 @@ services:
       context: ./frontend
       target: development
     ports:
-      - "${VITE_FRONTEND_PORT}:${VITE_FRONTEND_PORT}"
+      - "${NEXT_PORT}:${NEXT_PORT}"
     environment:
-      - VITE_BACKEND_API=${VITE_BACKEND_API}
-      - VITE_FRONTEND_PORT=${VITE_FRONTEND_PORT}
+      - NEXT_PUBLIC_BACKEND_API=${NEXT_PUBLIC_BACKEND_API}
       - NODE_ENV=development
     volumes:
-      - ./frontend:/app
+      - ./frontend-next:/app
       - /app/node_modules
+    command: yarn dev -p ${NEXT_PORT}
     dns: 127.0.0.1
     networks:
       - webdiaries-net

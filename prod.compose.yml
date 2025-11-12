@@ -52,11 +52,12 @@ services:
     build:
       context: ./frontend
       target: production
+    ports:
+      - "${NEXT_PORT}:${NEXT_PORT}"
     environment:
       - NODE_ENV=production
-      - VITE_BACKEND_API=${VITE_BACKEND_API}
-    volumes:
-      - ./frontend-build:/app/dist
+      - NEXT_PUBLIC_BACKEND_API=${NEXT_PUBLIC_BACKEND_API}
+      - NEXT_PORT=${NEXT_PORT}
     networks:
       - webdiaries-net
 
@@ -70,7 +71,6 @@ services:
       - ./certbot-certs:/etc/letsencrypt
       - ./certbot-webroot:/etc/letsencrypt/webroot
       - ./user-dashboard-build:/usr/share/nginx/html/user-dashboard
-      - ./frontend-build:/usr/share/nginx/html/frontend
     depends_on:
       - blog-service
       - user-dashboard

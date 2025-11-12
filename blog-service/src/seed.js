@@ -4,6 +4,15 @@ import {hashPassword} from "./helpers/hashing.js"
 import {mongoClient} from "./db.js"
 import {Blog, User, Tag} from "./database/models/index.js"
 
+// Slug oluşturma fonksiyonu
+function generateSlug(title) {
+  return title
+    .toLowerCase()
+    .replace(/[^\w ]+/g, "")
+    .replace(/ +/g, "-")
+    .substring(0, 60)
+}
+
 async function seed() {
   const existing = await User.findOne({username: "test"})
   if (existing) {
@@ -22,10 +31,10 @@ async function seed() {
     email: "test@example.com"
   })
 
-  // Generate unique tag names
+  // Generate unique tag names (lowercase)
   const tagNames = new Set()
   while (tagNames.size < 30) {
-    tagNames.add(faker.music.genre())
+    tagNames.add(faker.music.genre().toLowerCase())
   }
   const tags = Array.from(tagNames).map(name => ({name}))
 
@@ -38,8 +47,12 @@ async function seed() {
       createdTags,
       faker.number.int({min: 3, max: 5})
     )
+    const title = faker.lorem.sentence()
+    const slug = generateSlug(title)
+
     blogs.push({
-      title: faker.lorem.sentence(),
+      title,
+      slug,
       content: `<p>${faker.lorem.paragraphs(5, "<br><br>")}</p>`,
       author: user._id,
       tags: randomTags.map(t => t._id),
@@ -53,7 +66,7 @@ async function seed() {
   }
 
   await Blog.insertMany(blogs)
-  console.log("100 blogs created")
+  console.log("100 blogs created with slugs")
   await mongoClient.close()
   console.log("Seeding done!")
 }
