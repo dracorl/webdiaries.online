@@ -58,6 +58,8 @@ services:
       - NODE_ENV=production
       - NEXT_PUBLIC_BACKEND_API=${NEXT_PUBLIC_BACKEND_API}
       - NEXT_PORT=${NEXT_PORT}
+    volumes:
+      - ./.env.production.local:/app/.env.production.local:ro
     networks:
       - webdiaries-net
 
