@@ -16,7 +16,17 @@
 
 ### Frontend
 
+#### User Dashboard (Blog Management)
+
 - **Vite** - Build tool and development server
+
+- **React** - UI library
+
+- **Tailwind CSS** - Styling framework
+
+#### Blog Viewer (Published Blog Display)
+
+- **Next.js** - Framework for server-side rendering and static generation
 
 - **React** - UI library
 
@@ -182,7 +192,17 @@ This project is licensed under the MIT License. See the LICENSE file for details
 
 ### Frontend
 
+#### Kullanıcı Paneli (Blog Yönetimi)
+
 - **Vite** - Build tool ve development server
+
+- **React** - UI kütüphanesi
+
+- **Tailwind CSS** - Styling framework
+
+#### Blog Görüntüleyici (Yayınlanmış Blog Gösterimi)
+
+- **Next.js** - Statik sayfalar ve sunucu taraflı render için framework
 
 - **React** - UI kütüphanesi
 
