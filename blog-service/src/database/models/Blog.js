@@ -33,23 +33,6 @@ const blogSchema = new mongoose.Schema(
   {timestamps: true}
 )
 
-// Slug oluşturma middleware'i
-blogSchema.pre("save", next => {
-  if (this.isModified("title") && !this.slug) {
-    this.slug = generateSlug(this.title)
-  }
-  next()
-})
-
-// Slug oluşturma fonksiyonu
-const generateSlug = title => {
-  return title
-    .toLowerCase()
-    .replace(/[^\w ]+/g, "")
-    .replace(/ +/g, "-")
-    .substring(0, 60)
-}
-
 blogSchema.index({title: "text", content: "text"})
 blogSchema.index({slug: 1})
 

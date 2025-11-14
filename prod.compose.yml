@@ -52,14 +52,14 @@ services:
     build:
       context: ./frontend
       target: production
+      args:
+        - NEXT_PUBLIC_BACKEND_API=${NEXT_PUBLIC_BACKEND_API}
     ports:
       - "${NEXT_PORT}:${NEXT_PORT}"
     environment:
       - NODE_ENV=production
       - NEXT_PUBLIC_BACKEND_API=${NEXT_PUBLIC_BACKEND_API}
       - NEXT_PORT=${NEXT_PORT}
-    volumes:
-      - ./.env.production.local:/app/.env.production.local:ro
     networks:
       - webdiaries-net
 
